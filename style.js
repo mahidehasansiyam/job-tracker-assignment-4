@@ -1,248 +1,112 @@
-let noOfTotal = document.getElementById('no-of-total');
+let noOfall = document.getElementById('no-of-all');
 let noOfInterview = document.getElementById('no-of-interview');
 let noOfRejected = document.getElementById('no-of-rejected');
-let delet = document.querySelectorAll('.delet');
-let status = document.querySelectorAll('.status');
 let interview = document.querySelectorAll('.interview');
 let rejected = document.querySelectorAll('.rejected');
+let delet = document.querySelectorAll('.delet');
 let cards = document.querySelector('#cards');
 let jobCount = document.querySelector('#job-count');
-let mainContent = document.querySelector('.main-content');
-let filterSection = document.querySelector('#filter-section');
-let interviewArry = [];
-let rejectedArry = []; 
-let currentFilter = 'all';
+let allSection = document.getElementById('allSection');
+let interviewSection = document.getElementById('interviewSection');
+let rejectedSection = document.getElementById('rejectedSection');
+let currentPage = 'allBtn';
+let emptyState = document.getElementById('emptyState');
 
-function calculateCount() {
-  jobCount.innerText = cards.children.length;
-  noOfTotal.innerText = cards.children.length;
-  noOfInterview.innerText = interviewArry.length;
-  noOfRejected.innerText = rejectedArry.length;
-}
-calculateCount();
+// Button Toggle 
+function toggleBtn(currentBtn) {
+  
+  let btns = ['allBtn', 'interviewBtn', 'rejectedBtn']; 
+   
+  currentPage = currentBtn;
 
-let allBtn = document.getElementById('allBtn');
-let interviewBtn = document.getElementById('interviewBtn');
-let rejectedBtn = document.getElementById('rejectedBtn');
+  for (const btn  of btns) { 
+    const btnNane = document.getElementById(btn);
+    // console.log(btnNane);
+    if (btn === currentBtn) {
+      btnNane.classList.remove('bg-gray-300');
+      btnNane.classList.add('bg-blue-800','text-white') 
+    }
+    else {
+      btnNane.classList.add('bg-gray-300');
+      btnNane.classList.remove('bg-blue-800', 'text-white');
+      
+    }
+  } 
 
-function toggleStatus(id) {
-  // console.log(id, 'click');
+  emptyState.classList.add('hidden')
+  let sections = [allSection, interviewSection, rejectedSection];
+  for (const section of sections) {
+    section.classList.add('hidden');
+  } 
 
-  allBtn.classList.remove('bg-blue-800', 'text-white');
-  interviewBtn.classList.remove('bg-blue-800', 'text-white');
-  rejectedBtn.classList.remove('bg-blue-800', 'text-white');
-
-  allBtn.classList.add('bg-gray-300', 'text-black');
-  interviewBtn.classList.add('bg-gray-300', 'text-black');
-  rejectedBtn.classList.add('bg-gray-300', 'text-black');
-
-  const selected = document.getElementById(id);
-  // console.log(selected);
-  currentFilter = id;
-
-  selected.classList.remove('bg-gray-300', 'text-black');
-  selected.classList.add('bg-blue-800', 'text-white');
-
-  if (id === 'interviewBtn'){
-    cards.classList.add('hidden');
-    filterSection.classList.remove('hidden');
-    renderInterview();
-    
+  if (currentBtn === 'allBtn') { 
+    allSection.classList.remove('hidden');  
+    if (allSection.children.length < 1) {
+      emptyState.classList.remove('hidden');
+    }
   }
-  else if (id === "allBtn") {
-    cards.classList.remove('hidden');
-    filterSection.classList.add('hidden');
+  else if (currentBtn === 'interviewBtn') {
+    interviewSection.classList.remove('hidden');
+    if (interviewSection.children.length < 1) {
+      emptyState.classList.remove('hidden');
+    }
   }
-  else if (id === 'rejectedBtn') {
-    cards.classList.add('hidden');
-    filterSection.classList.remove('hidden');
-    renderRejected();
+  else if (currentBtn === 'rejectedBtn') {
+    rejectedSection.classList.remove('hidden');
+    if (rejectedSection.children.length < 1) {
+      emptyState.classList.remove('hidden');
+    }
   }
-}
-       
-// Event delegation for status buttons
-mainContent.addEventListener('click', function (e) {
+  countUpdate();
+} 
+
+toggleBtn(currentPage);
+
+document.getElementById('sections').addEventListener('click', function (e) {
+  let parentCard = e.target.closest('.card');
+  let fullContent = parentCard.parentNode;
+  const status = document.querySelector('.status');
 
   if (e.target.classList.contains('interview')) {
-    let parentNode = e.target.parentNode.parentNode.parentNode;
-    let jobName = parentNode.querySelector('.job-name').innerText;
-    let jobType = parentNode.querySelector('.job-type').innerText;
-    let salery = parentNode.querySelector('.salery').innerText;
-    let status = parentNode.querySelector('.status').innerText;
-    let description = parentNode.querySelector('.description').innerText;
-
-    parentNode.querySelector('.status').innerText = 'Interview';
-
-    let cardInfo = {
-      jobName,
-      jobType,
-      salery,
-      status: 'Interview',
-      description,
-    };
-    // console.log(cardInfo);
-
-    let interviewExist = interviewArry.find(
-      item => item.jobName === cardInfo.jobName,
-    );
-
-    if (!interviewExist) {
-      interviewArry.push(cardInfo);
-    }
-
-    rejectedArry = rejectedArry.filter(item => item.jobName !== cardInfo.jobName);  // Remove from rejected if it exists there
-    if (currentFilter === 'rejectedBtn') {
-      renderRejected();
-    }
-
-    calculateCount();
-    
+    status.innerText = 'Interview';
+    interviewSection.appendChild(parentCard)
   }
-  else if (e.target.classList.contains('rejected')) {
-    let parentNode = e.target.parentNode.parentNode.parentNode;
-    let jobName = parentNode.querySelector('.job-name').innerText;
-    let jobType = parentNode.querySelector('.job-type').innerText;
-    let salery = parentNode.querySelector('.salery').innerText;
-    let status = parentNode.querySelector('.status').innerText;
-    let description = parentNode.querySelector('.description').innerText;
-
-    parentNode.querySelector('.status').innerText = 'Rejected';
-
-    let cardInfo = {
-      jobName,
-      jobType,
-      salery,
-      status: 'Rejected',
-      description,
-    };
-    // console.log(cardInfo);
-
-    let interviewExist = rejectedArry.find(
-      item => item.jobName === cardInfo.jobName,
-    );
-
-    if (!interviewExist) {
-      rejectedArry.push(cardInfo);
-    }
-
-    interviewArry = interviewArry.filter(item => item.jobName !== cardInfo.jobName);  // Remove from interview if it exists there
-    if (currentFilter === 'interviewBtn') {
-      renderInterview();
-    }
-    // else if (currentFilter === 'rejectedBtn') {
-    //   renderRejected();
-    // }
-
-    calculateCount();
-  
+  if (e.target.classList.contains('rejected')) {
+    status.innerText = 'Rejected';
+    rejectedSection.appendChild(parentCard);
+  }
+  if (e.target.classList.contains('delet')) {
+    fullContent.removeChild(parentCard);
+    allSection.appendChild(parentCard);
   }
   
+  countUpdate();
 })
 
-// interview.forEach((btn) => {
-//   btn.addEventListener('click', function (e) {
-//     let parentNode = e.target.parentNode.parentNode.parentNode;
-//     let jobName = parentNode.querySelector('.job-name').innerText;
-//     let jobType = parentNode.querySelector('.job-type').innerText;
-//     let salery = parentNode.querySelector('.salery').innerText;
-//     let status = parentNode.querySelector('.status').innerText;
-//     let description = parentNode.querySelector('.description').innerText;
-  
-//     let cardInfo = {
-//       jobName,
-//       jobType,
-//       salery,
-//       status,
-//       description
-//     }
-//     // console.log(cardInfo);
-//   })
+// Count Update
+function countUpdate() {
+  noOfall.innerText = allSection.children.length;
+  noOfInterview.innerText = interviewSection.children.length;
+  noOfRejected.innerText = rejectedSection.children.length;
 
-//   let interviewExist = interviewArry.find(
-//     item => item.jobName === cardInfo.jobName,
-//   );
+  const counts = {
+    allBtn: allSection.children.length,
+    interviewBtn: interviewSection.children.length,
+    rejectedBtn: rejectedSection.children.length
+  };
 
-//   if (!interviewExist) {
-//     interviewArry.push(cardInfo);
-//   }
-//   console.log(interviewArry);
-// })
+  noOfall.innerText = counts.allBtn;
+  noOfInterview.innerText = counts.interviewBtn;
+  noOfRejected.innerText = counts.rejectedBtn;
 
-function renderInterview() {
-  filterSection.innerHTML = '';
- 
-  for (let interview of interviewArry) {
-    // console.log(interview); 
+  jobCount.innerText = counts[currentPage]
 
-    let div = document.createElement('div');
-    div.className=('card w-full md:w-1/2 lg:w-full p-3'); 
-    div.innerHTML = `
-    <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-lg font-bold">${interview.jobName}</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">${interview.jobType}</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">${interview.salery}</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-400  text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">${interview.status}</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  ${interview.description}
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet" class="cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-    `;
-    filterSection.appendChild(div);
+  if (counts[currentPage] < 1) {
+    emptyState.classList.remove('hidden');
   }
-  // console.log(interviewArry);
-}
-
-function renderRejected() {
-  filterSection.innerHTML = '';
-
-  for (let reject of rejectedArry) {
-    // console.log(interview);
-
-    let div = document.createElement('div');
-    div.className = 'card w-full md:w-1/2 lg:w-full p-3';
-    div.innerHTML = `
-    <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-lg font-bold">${reject.jobName}</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">${reject.jobType}</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">${reject.salery}</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-400  text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">${reject.status}</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  ${reject.description}
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet" class="cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-    `;
-    filterSection.appendChild(div);
+  else {
+    emptyState.classList.add('hidden');
   }
-  // console.log(interviewArry);
+
 }
- 
+countUpdate();

@@ -16,12 +16,12 @@
 <body class="bg-gray-200">
 
   <section class="main max-w-[80%] mx-auto pt-10 ">
-    <header class="sticky top-0">
+    <header class="sticky top-0 mb-10">
       <h2 class="font-bold text-3xl">Job Application Tracker</h2>
       <div class="grid grid-cols-3 gap-3">
         <div class="bg-white p-4 rounded-2xl mt-6">
-          <h2 class="font-bold">Total</h2>
-          <h2 class="font-bold text-2xl" id="no-of-total">0</h2>
+          <h2 class="font-bold">All</h2>
+          <h2 class="font-bold text-2xl" id="no-of-all">0</h2>
         </div>
         <div class="bg-white p-4 rounded-2xl mt-6">
           <h2 class="font-bold">Interview</h2>
@@ -33,29 +33,26 @@
         </div>
       </div>
     </header>
-    <section class="main-content mt-10  mx-auto">
-
-      <!-- top button -->
-      <div class="main-top">
-        <div class="flex justify-between items-center mb-8 border-b border-gray-100 pb-4">
-          <h2 class="text-2xl font-bold text-[#1e3a5f]">Available Jobs</h2>
-          <h2 class="bg-blue-800 text-white px-3 py-1 rounded-full text-sm font-medium"><span id="job-count"></span> Jobs</h2>
-        </div>
-        <div class="button border-b ">
-          <button onclick="toggleStatus('allBtn')" id="allBtn"
-            class="btn bg-blue-800 text-white p-2 rounded-xl mr-3 w-20 cursor-pointer mb-5  ">All</button>
-          <button onclick="toggleStatus('interviewBtn')" id="interviewBtn"
-            class="btn bg-gray-300 p-2 rounded-xl mr-3 w-20 cursor-pointer mb-5">Interview</button>
-          <button onclick="toggleStatus('rejectedBtn')" id="rejectedBtn"
-            class="btn bg-gray-300 p-2 rounded-xl mr-3 w-20 cursor-pointer mb-5">Rejected</button>
-        </div>
+    <!-- top button -->
+    <div class="second-header">
+      <div class="flex justify-between items-center mb-8 border-b border-gray-100 pb-4">
+        <h2 class="text-2xl font-bold text-[#1e3a5f]">Available Jobs</h2>
+        <h2 class="bg-blue-800 text-white px-3 py-1 rounded-full text-sm font-medium"><span id="job-count">9</span> Jobs
+        </h2>
       </div>
-      <div id="filter-section" class="filter hidden ">
-            <!-- empty div  -->
+      <div class="button border-b ">
+        <button onclick="toggleBtn('allBtn')" id="allBtn"
+          class="btn  border-2 p-2 rounded-xl mr-3 w-20 cursor-pointer mb-5  ">All</button>
+        <button onclick="toggleBtn('interviewBtn')" id="interviewBtn"
+          class="btn  border-2  p-2 rounded-xl mr-3 w-20 cursor-pointer mb-5">Interview</button>
+        <button onclick="toggleBtn('rejectedBtn')" id="rejectedBtn"
+          class="btn  border-2 p-2 rounded-xl mr-3 w-20 cursor-pointer mb-5">Rejected</button>
       </div>
-      <!-- Cards -->
-      <div id="cards">
-
+    </div>
+    <!-- Sections -->
+    <div id="sections">
+      <div id="allSection" class="hidden">
+      
         <!-- Card 1 -->
         <div class="card w-full md:w-1/2 lg:w-full p-3">
           <div
@@ -83,246 +80,87 @@
                   class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
               </div>
             </div>
-            <div><button class="delet" class="cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
+            <div><button class="delet cursor-pointer rounded-full bg-slate-500 p-2"><i
+                  class="delet fa-regular fa-trash-can"></i></button></div>
           </div>
         </div>
-
+      
         <!-- Card 2 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
+      <div class="card w-full md:w-1/2 lg:w-full p-3">
+        <div
+          class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
+          <div>
             <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">TechFlow Systems</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">Backend Engineer</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">Remote • Full-time • $150k - $190k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Scale distributed systems and manage microservices using Go and Kubernetes in a high-growth
-                  environment.
-                </p>
+              <h2 class="job-name text-lg font-bold">Mobile First Corp</h2>
+              <p class="job-type text-[#718096] text-sm font-medium">React Native Developer</p>
+              <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
+                <span class="salery">Remote • Full-time • $130k - $175k</span>
               </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
+              <span
+                class="status inline-block bg-gray-400  text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
+                Applied</span>
+              <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
+                Build cross-platform mobile applications using React Native. Work on products used by millions of
+                users
+                worldwide.
+              </p>
             </div>
-            <div><button class="delet" class="cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">Creative UI</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">Product Designer</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">London • Full-time • £70k - £90k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Create beautiful user experiences and modular design systems for leading global consumer brands.
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
+            <div class="flex gap-2">
+              <button
+                class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
+              <button
+                class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
             </div>
-            <div><button class="delet" class="cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
           </div>
+          <div><button class="delet cursor-pointer rounded-full bg-slate-500 p-2"><i
+                class="delet fa-regular fa-trash-can"></i></button></div>
         </div>
-
-        <!-- Card 4 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">DataBridge Labs</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">Data Analyst</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">Berlin • Full-time • €60k - €80k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Analyze datasets and generate actionable insights to support product and marketing decisions.
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet" class="cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">CloudNest</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">DevOps Engineer</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">Remote • Contract • $110k - $140k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Maintain CI/CD pipelines and cloud infrastructure ensuring scalability and reliability.
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet" class="cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">PixelCraft</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">UI/UX Designer</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">Toronto • Full-time • $75k - $95k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Design intuitive interfaces and collaborate with developers to deliver polished digital products.
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">FinCore</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">Frontend Developer</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">New York • Full-time • $120k - $150k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Develop responsive interfaces using modern JavaScript frameworks for fintech platforms.
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">AI Horizon</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">Machine Learning Engineer</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">Remote • Full-time • $160k - $200k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Build and deploy ML models powering intelligent automation and predictive analytics systems.
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-        </div>
-
-        <!-- Card 9 -->
-        <div class="card w-full md:w-1/2 lg:w-full p-3">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-full flex justify-between hover:border-blue-300 transition-all duration-300">
-            <div>
-              <div>
-                <h2 class="job-name text-[#1e3a5f] text-lg font-bold">CyberShield</h2>
-                <p class="job-type text-[#718096] text-sm font-medium">Security Specialist</p>
-                <div class="flex items-center text-[#718096] text-[11px] my-3 gap-1">
-                  <span class="salery">Singapore • Full-time • $140k - $170k</span>
-                </div>
-                <span
-                  class="status inline-block bg-gray-300 text-[#1e3a5f] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-4">Not
-                  Applied</span>
-                <p class="description text-[#4a5568] text-sm mb-6 line-clamp-2 leading-relaxed">
-                  Protect enterprise systems by monitoring vulnerabilities and implementing security best practices.
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  class="interview border-2 border-green-500 text-[#10b981] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-emerald-50 transition-colors">Interview</button>
-                <button
-                  class="rejected border-2 border-red-500 text-[#f87171] font-bold p-2 rounded-md text-[11px] uppercase hover:bg-red-50 transition-colors">Rejected</button>
-              </div>
-            </div>
-            <div><button class="delet cursor-pointer"><i class="fa-regular fa-trash-can"></i></button></div>
-          </div>
-        </div>
-
       </div>
-    </section>
+      
+        <!-- Card 3 -->
+      
+      
+        <!-- Card 4 -->
+      
+      
+        <!-- Card 5 -->
+      
+        <!-- Card 6 -->
+      
+      
+        <!-- Card 7 -->
+      
+      
+        <!-- Card 8 -->
+      
+      
+        <!-- Card 9 -->
+      
+      
+      </div>
+      <div id="interviewSection" class="hidden text-lg font-bold">Interview</div>
+      <div id="rejectedSection" class="hidden text-lg font-bold">Rejected</div>
+    </div>
   </section>
+  <!-- Empty State -->
+  <div id="emptyState" class="hidden">
+    <div class="flex flex-col items-center justify-center min-h-[400px] p-8 text-center">
+      <div class="mb-6">
+        <svg class="w-24 h-24 text-blue-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M14 2H6C4.89 2 4 2.9 4 4V20C4 21.1 4.89 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20ZM8 12H16V14H8V12ZM8 16H16V18H8V16ZM8 8H11V10H8V8Z" />
+        </svg>
+      </div>
+
+      <h2 class="text-2xl font-bold text-slate-900 mb-2">
+        No jobs available
+      </h2>
+      <p class="text-slate-500 text-lg">
+        Check back soon for new job opportunities
+      </p>
+    </div>
+  </div>
+
 
 
   <script src="style.js"></script>

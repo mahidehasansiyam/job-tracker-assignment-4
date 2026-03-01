@@ -36,21 +36,31 @@ function toggleBtn(currentBtn) {
 
     if (currentBtn === 'allBtn') {
       allSection.classList.remove('hidden')
-      jobCount.innerText = allSection.children.length;
-      
     }
     if (currentBtn === 'interviewBtn') {
-      interviewSection.classList.remove('hidden');
-      jobCount.innerText = interviewSection.children.length;
+      interviewSection.classList.remove('hidden'); 
     }
     if (currentBtn === 'rejectedBtn') {
-      rejectedSection.classList.remove('hidden');
-      jobCount.innerText = rejectedSection.children.length;
+      rejectedSection.classList.remove('hidden');    
     }
   }
   EmptyState();
+  noOfJob();
 }
 toggleBtn(currentPage);
+
+function noOfJob() {
+  if (currentPage === 'allBtn') {
+    jobCount.innerText = allSection.children.length;
+  }
+  if (currentPage === 'interviewBtn') {
+    jobCount.innerText = interviewSection.children.length;
+  }
+  if (currentPage === 'rejectedBtn') {
+    jobCount.innerText = rejectedSection.children.length;
+  }
+}
+noOfJob();
 
 
 document.getElementById('sections').addEventListener('click', (e) => {
@@ -77,6 +87,7 @@ document.getElementById('sections').addEventListener('click', (e) => {
   
   countUpdate();
   EmptyState();
+  noOfJob();
 })
 
 function EmptyState() {
